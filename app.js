@@ -660,7 +660,12 @@ async function openConversation(
   conversationId,
   otherUserId
 ) {
+  // Mobile: show conversation
+  document.querySelector(".sidebar")
+    .classList.add("mobile-hidden");
 
+  document.querySelector(".chat")
+    .classList.add("mobile-open");
   const {
     data: otherUser,
     error
@@ -1477,6 +1482,13 @@ document
   .getElementById("backToChats")
   .addEventListener("click", async () => {
 
+    // Mobile: return to chat list
+    document.querySelector(".chat")
+      .classList.remove("mobile-open");
+
+    document.querySelector(".sidebar")
+      .classList.remove("mobile-hidden");
+
     // Clear selected conversation
     window.currentConversationId = null;
     window.currentChatUser = null;
@@ -1526,7 +1538,9 @@ document
     ).style.display = "block";
 
   });
-  document.getElementById(
+
+
+document.getElementById(
   "myDetailsEditBtn"
 ).addEventListener("click", () => {
 

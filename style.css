@@ -1413,3 +1413,119 @@ body {
 .back-to-chats:active {
   transform: scale(0.94);
 }
+/* =============================
+   MOBILE LAYOUT
+============================= */
+
+@media (max-width: 700px) {
+  .chat-header {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .back-to-chats {
+    flex-shrink: 0;
+  }
+
+  .user-info {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .user-info > div:last-child {
+    min-width: 0;
+  }
+
+  .user-info h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .chat-actions {
+    flex-shrink: 0;
+  }
+
+  .chat-actions button {
+    width: 34px;
+    height: 34px;
+  }
+  body {
+    overflow: hidden;
+  }
+
+  #app {
+    display: block;
+    width: 100%;
+    height: 100vh;
+  }
+
+  /* CHAT LIST */
+
+  .sidebar {
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+
+  /* CHAT AREA */
+
+  .chat {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 20;
+    display: none;
+  }
+
+  /* RIGHT PROFILE */
+
+  .details {
+    display: none;
+  }
+
+}
+  .chat.mobile-open {
+    display: flex;
+  }
+
+  .sidebar.mobile-hidden {
+    display: none;
+  }
+  @media (max-width: 700px) {
+
+  .chat {
+    flex-direction: column;
+  }
+
+  #messages {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .message-form {
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+}
+@media (max-width: 700px) {
+
+  .message-form {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .message-form input {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .message-form button {
+    flex-shrink: 0;
+  }
+
+}
