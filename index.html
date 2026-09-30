@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ChatApp</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- AUTH SCREEN -->
+
+    <div id="authScreen">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                ✦
+            </div>
+
+            <h1>ChatApp</h1>
+
+            <p class="auth-subtitle">
+                Stay connected. Stay close.
+            </p>
+
+
+            <!-- LOGIN -->
+
+            <div id="loginForm">
+
+                <h2>Welcome back</h2>
+
+                <p class="form-description">
+                    Log in to continue your conversations.
+                </p>
+
+                <input
+                    type="text"
+                    id="loginUsername"
+                    placeholder="@username"
+                    autocomplete="username"
+                >
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                >
+
+                <button
+                    type="button"
+                    class="auth-button"
+                    id="loginButton"
+                >
+                    Log in
+                </button>
+
+                <p class="switch-auth">
+                    Don't have an account?
+                    <button type="button" id="showSignup">
+                        Create one
+                    </button>
+                </p>
+
+            </div>
+
+
+            <!-- SIGN UP -->
+
+            <div id="signupForm" class="hidden">
+
+                <h2>Create your account</h2>
+
+                <p class="form-description">
+                    Choose a username people can find you by.
+                </p>
+
+                <input
+                    type="text"
+                    id="signupName"
+                    placeholder="Your name"
+                    autocomplete="name"
+                >
+                 <input
+  type="email"
+  id="signupEmail"
+  placeholder="Email address"
+  autocomplete="email"
+  required
+>
+                <input
+                    type="text"
+                    id="signupUsername"
+                    placeholder="@username"
+                    autocomplete="username"
+                >
+
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                >
+
+                <button
+                    type="button"
+                    class="auth-button"
+                    id="signupButton"
+                >
+                    Create account
+                </button>
+
+                <p class="switch-auth">
+                    Already have an account?
+                    <button type="button" id="showLogin">
+                        Log in
+                    </button>
+                </p>
+
+            </div>
+
+            <p id="authMessage"></p>
+
+        </div>
+
+    </div>
+<div id="newChatModal" class="modal hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+            <h2>New Chat</h2>
+
+            <button
+                type="button"
+                id="closeNewChat"
+            >
+                ×
+            </button>
+        </div>
+
+        <p class="modal-subtitle">
+            Search someone by username
+        </p>
+
+        <input
+            type="text"
+            id="userSearchInput"
+            placeholder="@username"
+            autocomplete="off"
+        >
+
+        <div id="userSearchResults"></div>
+
+    </div>
+
+</div>
+
+    <!-- MAIN APP -->
+
+    <div id="app">
+
+        <!-- LEFT: CHAT LIST -->
+<aside class="sidebar">
+
+    <div class="topbar">
+
+        <h1>ChatApp</h1>
+
+        <button
+            type="button"
+            onclick="logout()"
+            class="logout-button"
+        >
+            Log out
+        </button>
+
+        <button id="newChatBtn">
+            ＋
+        </button>
+
+    </div>
+
+
+    <div class="my-profile">
+
+        <div class="my-avatar" id="myAvatar">
+            ?
+        </div>
+
+        <div class="my-profile-text">
+
+            <strong id="myDisplayName">
+                Loading...
+            </strong>
+
+            <span id="myUsername">
+                @...
+            </span>
+
+        </div>
+
+        <button
+            type="button"
+            id="editProfileBtn"
+            class="edit-profile-button"
+            title="Edit profile"
+        >
+            ✎
+        </button>
+
+    </div>
+
+
+    <div class="search">
+
+        <input
+            type="text"
+            placeholder="Search chats..."
+            id="searchInput"
+        >
+
+    </div>
+<div class="recent-header">
+    <span>Recent</span>
+</div>
+            <div class="chat-list" id="chatList">
+
+                <!-- Chats will be added here -->
+
+            </div>
+
+        </aside>
+
+
+        <!-- CENTER: CHAT -->
+
+        <main class="chat">
+
+            <header class="chat-header">
+            <button
+    type="button"
+    id="backToChats"
+    class="back-to-chats"
+    title="Back to chats"
+>
+    ←
+</button>
+                <div class="user-info">
+
+                    <div
+                        class="avatar"
+                        id="chatAvatar"
+                    >
+                        ?
+                    </div>
+
+                    <div>
+
+                        <h2 id="chatName">
+                            Select a chat
+                        </h2>
+
+                        <p id="chatStatus">
+                            —
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chat-actions">
+
+                    <button>
+                        ⌕
+                    </button>
+
+                    <button>
+                        •••
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <section
+                class="messages"
+                id="messages"
+            >
+
+                <div class="empty-chat">
+
+                    <div class="empty-icon">
+                        💬
+                    </div>
+
+                    <h2>
+                        Your messages
+                    </h2>
+
+                    <p>
+                        Choose someone to start chatting.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <form
+                class="message-bar"
+                id="messageForm"
+            >
+
+                <button
+                    type="button"
+                    id="attachBtn"
+                >
+                    ＋
+                </button>
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Type a message..."
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    id="emojiBtn"
+                >
+                    ☺
+                </button>
+
+                <button
+                    type="submit"
+                    id="sendBtn"
+                >
+                    ➤
+                </button>
+
+            </form>
+
+        </main>
+
+
+        <!-- RIGHT: PROFILE -->
+
+    <!-- RIGHT: PROFILE -->
+
+<aside class="details">
+
+    <div class="my-details-profile">
+
+        <div
+            class="my-details-avatar"
+            id="myDetailsAvatar"
+        >
+            ?
+        </div>
+
+        <h2 id="myDetailsName">
+            Loading...
+        </h2>
+
+        <p
+            class="my-details-username"
+            id="myDetailsUsername"
+        >
+            @...
+        </p>
+
+        <p
+            class="my-details-bio"
+            id="myDetailsBio"
+        >
+            No bio yet.
+        </p>
+
+        <button
+            type="button"
+            id="myDetailsEditBtn"
+            class="details-edit-button"
+        >
+            ✎ Edit profile
+        </button>
+
+    </div>
+
+</aside>
+
+    </div>
+<!-- EDIT PROFILE MODAL -->
+
+<div id="editProfileModal" class="modal hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <h2>Edit Profile</h2>
+
+            <button
+                type="button"
+                id="closeEditProfile"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="edit-profile-form">
+
+            <div class="edit-avatar-preview" id="editAvatarPreview">
+                ?
+            </div>
+
+            <label>
+                Display name
+                <input
+                    type="text"
+                    id="editDisplayName"
+                    maxlength="40"
+                    placeholder="Your name"
+                >
+            </label>
+
+            <label>
+                Bio
+                <textarea
+                    id="editBio"
+                    maxlength="150"
+                    placeholder="Tell people a little about yourself..."
+                ></textarea>
+            </label>
+
+            <button
+                type="button"
+                id="saveProfileBtn"
+                class="save-profile-button"
+            >
+                Save changes
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="app.js" defer></script>
+
+</body>
+</html>
