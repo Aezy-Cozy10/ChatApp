@@ -572,9 +572,6 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .sidebar {
-        display: none;
-    }
 
     .chat {
         border-radius: 0;
